@@ -12,7 +12,7 @@ const customMap = new CustomMap("map");
 
 // //load google maps
 // const loader = new Loader({
-//   apiKey: "AIzaSyBpRL_JR6ZScBBpnqpbWJJp5F2tBo-jpBs",
+//   apiKey:
 //   version: "weekly",
 // });
 

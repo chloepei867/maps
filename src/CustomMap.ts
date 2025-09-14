@@ -13,7 +13,8 @@ export class CustomMap {
 
   private async initGoogleMap(): Promise<void> {
     const loader = new Loader({
-      apiKey: "AIzaSyBpRL_JR6ZScBBpnqpbWJJp5F2tBo-jpBs",
+      //need to replace with your own google map api key here
+      apiKey: "YOUR_GOOGLE_MAP_API_KEY",
       version: "weekly",
     });
 
