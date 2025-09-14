@@ -14,7 +14,8 @@ export class CustomMap {
   private async initGoogleMap(): Promise<void> {
     const loader = new Loader({
       //need to replace with your own google map api key here
-      apiKey: "YOUR_GOOGLE_MAP_API_KEY",
+      // apiKey: "AIzaSyBpRL_JR6ZScBBpnqpbWJJp5F2tBo-jpBs",
+      apiKey: import.meta.env.GOOGLE_MAPS_API_KEY!,
       version: "weekly",
     });
 
