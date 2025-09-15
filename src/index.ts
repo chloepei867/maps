@@ -4,26 +4,19 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { CustomMap } from "./CustomMap";
 
 const customMap = new CustomMap("map");
+const position = {
+  location: {
+    lat: 37.400754,
+    lng: -121.971818,
+  },
+  markerContent(): string {
+    return "this is a random location";
+  },
+};
 
-// wait until the initialization of the map is finished
-// customMap.ready;
+const user = new User();
+const company = new Company();
 
-// let map: google.maps.Map;
-
-// //load google maps
-// const loader = new Loader({
-//   apiKey:
-//   version: "weekly",
-// });
-
-// loader
-//   .importLibrary("maps")
-//   .then(({ Map }) => {
-//     map = new Map(document.getElementById("map") as HTMLElement, {
-//       center: { lat: 37.439712, lng: -122.0096919 },
-//       zoom: 8,
-//     });
-//   })
-//   .catch((e) => {
-//     console.log(e);
-//   });
+customMap.addMarker(position);
+customMap.addMarker(user);
+customMap.addMarker(company);

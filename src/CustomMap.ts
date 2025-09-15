@@ -1,8 +1,20 @@
 import { Loader } from "@googlemaps/js-api-loader";
 
+// instructions to every class on how they can be an argument to addMarker method.
+export interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+
 export class CustomMap {
-  //a reference to google map
+  //a reference to google map instance
   private googleMap!: google.maps.Map;
+  private AdvancedMarkerElement!: typeof google.maps.marker.AdvancedMarkerElement;
+  private InfoWindow!: google.maps.InfoWindow;
+
   public ready: Promise<void>;
   public divId: string;
 
@@ -11,23 +23,46 @@ export class CustomMap {
     this.ready = this.initGoogleMap();
   }
 
+  public async addMarker(mappable: Mappable) {
+    await this.ready;
+    const marker = new this.AdvancedMarkerElement({
+      map: this.googleMap,
+      position: mappable.location,
+    });
+
+    //add a info window
+    const infowindow = new google.maps.InfoWindow({
+      content: `${mappable.markerContent()}`,
+    });
+    marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        map: this.googleMap,
+      });
+    });
+  }
+
   private async initGoogleMap(): Promise<void> {
     const loader = new Loader({
-      //need to replace with your own google map api key here
-      // apiKey: "AIzaSyBpRL_JR6ZScBBpnqpbWJJp5F2tBo-jpBs",
-      apiKey: import.meta.env.GOOGLE_MAPS_API_KEY!,
+      apiKey: "YOUR_GOOGLE_MAP_API_KEY",
       version: "weekly",
     });
 
     try {
-      const { Map } = await loader.importLibrary("maps");
+      // load libraries
+      const { Map, InfoWindow } = await loader.importLibrary("maps");
+      const { AdvancedMarkerElement } = await loader.importLibrary("marker");
       this.googleMap = new Map(
         document.getElementById(this.divId) as HTMLElement,
         {
-          center: { lat: 37.439712, lng: -122.0096919 },
-          zoom: 8,
+          // center: { lat: 37.439712, lng: -122.0096919 },
+          center: { lat: 0, lng: 0 },
+          zoom: 1,
+          mapId: "YOUR_MAP_ID",
         }
       );
+
+      this.AdvancedMarkerElement = AdvancedMarkerElement;
     } catch (e) {
       console.error("Failed to initialize map:", e);
     }

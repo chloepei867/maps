@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-  readonly GOOGLE_MAPS_API_KEY: string;
+  readonly GOOGLE_MAP_API_KEY: string;
 }
 
 interface ImportMeta {
